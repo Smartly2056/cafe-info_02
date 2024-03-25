@@ -13,24 +13,34 @@
 
     <h3>メニュー掲載フォーム</h3>
     <div class="showImage">
-        <form action="../app/showImage.php" method="post">
+        <form action="{{ route('edit.show') }}" method="POST">
+            @csrf
+
             <div>
-                <label for="menuIdLabel">メニューID</label>
-                <input type="number" name="menuId">
+                <label for="#">メニューID</label>
+                <input type="number" name="menu_id">
             </div>
-            <button type="submit" name="show">メニュー掲載</button>
+            <button type="submit">メニュー掲載</button>
         </form>
+
         <button class="purge">全て削除</button>
     </div>
     <hr>
 
     <div class="menuViewer">
-        <div class="menu">
-            <a data-id="#"><img src="#" alt="#"></a>
-            <p>
+        @forelse ($MenuViewer as $menu)
+            <div class="menu">
+                <a data-id="{{ $menu->id }}"><img src="#" alt="#"></a>
+                <p>{{ $menu->menuList->menu }}</p>
+                <p>&#xa5 {{ $menu->menuList->price }}</p>
+
+                </p>
                 <button data-id="#" class="delete">削除</button>
                 <input type="checkbox" data-id="#">完売</input>
-        </div>
+            </div>
+        @empty
+            <p>No menus yet</p>
+        @endforelse
     </div>
 
     <hr>

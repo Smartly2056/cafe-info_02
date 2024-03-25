@@ -28,4 +28,20 @@ class EditController extends Controller
         return redirect()
             ->route('edit.editPage');
     }
+
+    public function show(Request $request)
+    {
+        $request->validate([
+            'menu_id' => 'required',
+        ]);
+
+        $menus = new MenuViewer();
+        $menus->menu_id = $request->menu_id;
+        // $menus->show_date = null;
+        $menus->sold_out = 0;
+        $menus->save();
+
+        return redirect()
+            ->route('edit.editPage');
+    }
 }

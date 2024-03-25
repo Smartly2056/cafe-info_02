@@ -15,5 +15,9 @@ Route::get('/menuViewer', [MenuController::class, 'showMenus'])
 Route::get('/editPage', [MenuController::class, 'editPage'])
     ->name('edit.editPage');
 
+Route::post('/editPage/show', [EditController::class, 'show'])
+    ->name('edit.show');
+
 Route::post('/editPage/store', [EditController::class, 'store'])
     ->name('edit.store');
+

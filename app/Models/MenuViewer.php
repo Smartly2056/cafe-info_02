@@ -14,4 +14,9 @@ class MenuViewer extends Model
         'show_date',
         'sold_out',
     ];
+
+    public function menuList()
+    {
+        return $this->belongsTo(MenuList::class, 'menu_id');
+    }
 }

@@ -26,9 +26,10 @@ class MenuController extends Controller
     public function editPage()
     {
         $menuList = MenuList::all();
+        $MenuViewer = MenuViewer::all();
 
         return view('edit.editPage')
-            ->with(['menuList' => $menuList]);
+            ->with(['menuList' => $menuList, 'MenuViewer' => $MenuViewer]);
     }
 
 }

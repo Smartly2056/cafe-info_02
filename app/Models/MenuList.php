@@ -22,4 +22,9 @@ class MenuList extends Model
         "vegetable",
         "halal",
     ];
+
+    public function menuViewer()
+    {
+        return $this->hasMany(MenuViewer::class);
+    }
 }
