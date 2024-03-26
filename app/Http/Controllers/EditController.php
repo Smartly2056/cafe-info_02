@@ -12,10 +12,15 @@ class EditController extends Controller
 {
     public function store(MenuRequest $request)
     {
+        $directory = 'images';
+        $fileName = $request->file('picture')->getClientOriginalName();
+        $request->file('picture')->storeAs('public/' . $directory, $fileName);
+
+
         $menuList = new MenuList();
         $menuList->menu = $request->menu;
         $menuList->price = $request->price;
-        $menuList->picture = $request->picture;
+        $menuList->picture = 'storage/' . $directory . '/' . $fileName;
         $menuList->energy = $request->energy;
         $menuList->protein = $request->protein;
         $menuList->lipid = $request->lipid;

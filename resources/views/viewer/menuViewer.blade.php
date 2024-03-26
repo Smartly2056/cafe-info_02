@@ -12,9 +12,9 @@
     <div class="menuViewer">
         @forelse ($MenuViewer as $menu)
             <div class="menu" data-id="{{ $menu->id }}">
-                <a data-id="{{ $menu->id }}"><img src="#" alt="{{ $menu->menuList->menu }}"></a>
+                <a data-id="{{ $menu->id }}"><img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}"></a>
                 <p>{{ $menu->menuList->menu }}</p>
-                <p>&#xa5 {{ $menu->menuList->price }}</p>
+                <p><span>&#xa5</span>{{ $menu->menuList->price }} </p>
                 <p class="soldOut {{ !($menu->sold_out) ? "hidden" : ""}}">SOLD OUT</p>
             </div>
         @empty
@@ -26,6 +26,7 @@
     <!-- モーダル -->
     <section id="mask" class="hidden">
         <div id="modal" class="hidden">
+
             <img src="" alt="">
             <p class="soldOut hidden">SOLD OUT</p>
             <ul>

@@ -30,9 +30,9 @@
     <div class="menuViewer">
         @forelse ($MenuViewer as $menu)
             <div class="menu" data-id="{{ $menu->id }}">
-                <a data-id="{{ $menu->id }}"><img src="#" alt="{{ $menu->menuList->menu }}"></a>
+                <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
                 <p>{{ $menu->menuList->menu }}</p>
-                <p>&#xa5 {{ $menu->menuList->price }}</p>
+                <p><span>&#xa5</span>{{ $menu->menuList->price }}</p>
 
                 <button data-id="{{ $menu->id }}" class="delete">削除</button>
                 <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
@@ -70,21 +70,18 @@
         <form action="{{ route('edit.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
-            {{-- <div>
+            <div>
                 <img id="preview">
-                <input type="file" name="file" onchange="previewFile(this);">
-            </div> --}}
+                <input type="file" name="picture" onchange="previewFile(this);">
+                @error('picture')
+                    <div>{{ $message }}</div>
+                @enderror
+            </div>
+
             <div>
                 <label for="#">メニュー名</label>
                 <input type="text" name="menu" placeholder="例:カレーライス">
                 @error('menu')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">写真</label>
-                <input type="text" name="picture" placeholder="例:aaa">
-                @error('picture')
                     <div>{{ $message }}</div>
                 @enderror
             </div>
@@ -166,8 +163,19 @@
 
 
     <script>
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        function previewFile(event) {
+            let fileData = new FileReader();
+            fileData.onload = (function() {
+                const preview = document.getElementById('preview');
+                preview.src = fileData.result;
+                preview.style.width = "200px";
+                preview.style.height = "150px";
 
+            });
+            fileData.readAsDataURL(event.files[0]);
+        }
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
                 fetch(`/editPage/${checkbox.parentNode.dataset.id}/toggle`, {
