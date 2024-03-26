@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メニュー表示</title>
-    {{-- <link rel="stylesheet" href="css/menu.css"> --}}
+    <link rel="stylesheet" href="{{ url('css/menu.css') }}">
 </head>
 
 <body>
     <div class="menuViewer">
-        <div class="menu">
-
-        </div>
+        @forelse ($MenuViewer as $menu)
+            <div class="menu" data-id="{{ $menu->id }}">
+                <a data-id="{{ $menu->id }}"><img src="#" alt="{{ $menu->menuList->menu }}"></a>
+                <p>{{ $menu->menuList->menu }}</p>
+                <p>&#xa5 {{ $menu->menuList->price }}</p>
+                <p class="soldOut {{ !($menu->sold_out) ? "hidden" : ""}}">SOLD OUT</p>
+            </div>
+        @empty
+            <p>No menus yet</p>
+        @endforelse
     </div>
 
 
@@ -21,7 +29,7 @@
             <img src="" alt="">
             <p class="soldOut hidden">SOLD OUT</p>
             <ul>
-                @forelse ($menus as $menu)
+                @forelse ($MenuViewer as $menu)
                     <li>{{ $menu->menu_id }}</li>
                 @empty
                     <span>No menu yet</span>

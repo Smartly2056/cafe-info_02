@@ -16,10 +16,10 @@ class MenuController extends Controller
 
     public function showMenus()
     {
-        $menus = MenuViewer::all();
+        $MenuViewer = MenuViewer::all();
 
         return view('viewer.menuViewer')
-            ->with(['menus' => $menus]);
+            ->with(['MenuViewer' => $MenuViewer]);
     }
 
     // 管理者ページ
