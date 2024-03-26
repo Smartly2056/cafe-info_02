@@ -44,4 +44,24 @@ class EditController extends Controller
         return redirect()
             ->route('edit.editPage');
     }
+
+    public function destroy($id)
+    {
+        $menu = MenuViewer::findOrFail($id);
+        $menu->delete();
+
+        return redirect()
+            ->route('edit.editPage');
+    }
+
+    public function toggle($id)
+    {
+        $menu = MenuViewer::findOrFail($id);
+
+        $menu->sold_out = !($menu->sold_out);
+        $menu->save();
+
+        return redirect()
+            ->route('edit.editPage');
+    }
 }

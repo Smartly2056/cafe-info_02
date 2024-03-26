@@ -29,14 +29,13 @@
 
     <div class="menuViewer">
         @forelse ($MenuViewer as $menu)
-            <div class="menu">
-                <a data-id="{{ $menu->id }}"><img src="#" alt="#"></a>
+            <div class="menu" data-id="{{ $menu->id }}">
+                <a data-id="{{ $menu->id }}"><img src="#" alt="{{ $menu->menuList->menu }}"></a>
                 <p>{{ $menu->menuList->menu }}</p>
                 <p>&#xa5 {{ $menu->menuList->price }}</p>
 
-                </p>
-                <button data-id="#" class="delete">削除</button>
-                <input type="checkbox" data-id="#">完売</input>
+                <button data-id="{{ $menu->id }}" class="delete">削除</button>
+                <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
             </div>
         @empty
             <p>No menus yet</p>
@@ -166,8 +165,45 @@
     <a href="">ログアウト</a>
 
 
-    <script src=""></script>
+    <script>
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                fetch(`/editPage/${checkbox.parentNode.dataset.id}/toggle`, {
+                    method: 'POST',
+                    // method: 'PATCH',
+                    body: new URLSearchParams({
+                        id: checkbox.dataset.id,
+                    }),
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                });
+                checkbox.parentNode.classList.toggle('soldOut');
+            });
+        });
+
+        const deletes = document.querySelectorAll('.delete');
+        deletes.forEach(button => {
+            button.addEventListener('click', () => {
+                fetch(`/editPage/${button.parentNode.dataset.id}/destroy`, {
+                    method: 'POST',
+                    // method: 'DELETE',
+                    body: new URLSearchParams({
+                        id: button.dataset.id,
+                    }),
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                });
+
+                button.parentNode.remove();
+            });
+        });
+    </script>
 </body>
+
 
 
 </html>
