@@ -31,8 +31,8 @@
         @forelse ($MenuViewer as $menu)
             <div class="menu" data-id="{{ $menu->id }}">
                 <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
-                <p>{{ $menu->menuList->menu }}</p>
-                <p><span>&#xa5</span>{{ $menu->menuList->price }}</p>
+                <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
+                <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
 
                 <button data-id="{{ $menu->id }}" class="delete">削除</button>
                 <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
@@ -52,8 +52,8 @@
             </tr>
             @forelse ($menuList as $menu)
                 <tr>
-                    <td>{{ $menu->id }}</td>
-                    <td>{{ $menu->menu }}</td>
+                    <td>{{ $menu->id ? $menu->id : '-' }}</td>
+                    <td>{{ $menu->menu ? $menu->menu : '-' }}</td>
                 </tr>
             @empty
                 <tr>
