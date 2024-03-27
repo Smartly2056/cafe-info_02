@@ -27,7 +27,18 @@ Route::post('/editPage/{id}/toggle', [EditController::class, 'toggle'])
     ->where('id', '[0-9]+');
 
 
+// メニュー掲載画面
+Route::get('/editPage/postPage', [EditController::class, 'postPage'])
+    ->name('edit.postPage');
+
+
 // 新規メニュー追加
+Route::get('/editPage/create', [EditController::class, 'create'])
+    ->name('edit.create');
+
 Route::post('/editPage/store', [EditController::class, 'store'])
     ->name('edit.store');
+
+Route::post('/editPage/create/store', [EditController::class, 'create_store'])
+    ->name('edit.create_store');
 

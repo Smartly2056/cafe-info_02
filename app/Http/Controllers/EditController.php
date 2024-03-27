@@ -42,12 +42,12 @@ class EditController extends Controller
 
         $menus = new MenuViewer();
         $menus->menu_id = $request->menu_id;
-        // $menus->show_date = null;
+        $menus->show_date = $request->show_date;
         $menus->sold_out = 0;
         $menus->save();
 
         return redirect()
-            ->route('edit.editPage');
+            ->route('edit.postPage');
     }
 
     public function destroy($id)
@@ -69,4 +69,28 @@ class EditController extends Controller
         return redirect()
             ->route('edit.editPage');
     }
+
+    // 各詳細表示画面
+    public function postPage()
+    {
+        $menuList = MenuList::all();
+        $MenuViewer = MenuViewer::all();
+
+        return view('edit.postPage')
+            ->with(['menuList' => $menuList, 'MenuViewer' => $MenuViewer]);
+    }
+
+    public function create()
+    {
+        $menuList = MenuList::all();
+        $MenuViewer = MenuViewer::all();
+
+        return view('edit.create')
+            ->with(['menuList' => $menuList, 'MenuViewer' => $MenuViewer]);
+    }
+
+
+
+
+
 }

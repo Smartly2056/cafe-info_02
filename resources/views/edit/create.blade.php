@@ -4,49 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メニュー編集</title>
+    <title>新規メニュー追加</title>
     <link rel="stylesheet" href="{{ url('css/menu.css') }}">
 </head>
 
 <body>
-    <h1>メニュー編集画面</h1>
-
-    <a href="{{ route('edit.postPage') }}">メニュー掲載画面</a>
-    <a href="{{ route('edit.create') }}">新規メニュー追加画面</a>
-
-    {{-- <h3>メニュー掲載フォーム</h3>
-    <div class="showImage">
-        <form action="{{ route('edit.show') }}" method="POST">
-            @csrf
-
-            <div>
-                <label for="#">メニューID</label>
-                <input type="number" name="menu_id">
-            </div>
-            <button type="submit">メニュー掲載</button>
-        </form>
-
-        <button class="purge">全て削除</button>
+    <div>
+        &laquo; <a href="{{ route('edit.editPage') }}">戻る</a>
     </div>
-    <hr> --}}
+    <h1>新規メニュー追加画面</h1>
+
     <hr>
-    <h3>本日のメニュー</h3>
-    <div class="menuViewer">
-        @forelse ($MenuViewer as $menu)
-            <div class="menu" data-id="{{ $menu->id }}">
-                <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
-                <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
-                <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
-
-                <button data-id="{{ $menu->id }}" class="delete">削除</button>
-                <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
-            </div>
-        @empty
-            <p>No menus yet</p>
-        @endforelse
-    </div>
-
-    {{-- <hr>
     <div class="menuList">
         <h3>メニューリスト</h3>
         <table>
@@ -66,9 +34,9 @@
                 </tr>
             @endforelse
         </table>
-    </div> --}}
+    </div>
 
-    {{-- <hr>
+    <hr>
     <h3>メニューを追加</h3>
     <div class="submitImage">
         <form action="{{ route('edit.store') }}" method="post" enctype="multipart/form-data">
@@ -147,23 +115,8 @@
             </div>
             <button type="submit" name="submit">メニュー追加</button>
         </form>
-    </div> --}}
-    <hr>
-    <h3>営業時間を更新</h3>
-    <div class="submitCalendar">
-        <form action="" method="" enctype="">
-            <div>
-                <img id="previewCalendar">
-                <input type="file" name="file_calendar" onchange=";">
-            </div>
-            <button type="submit" name="submit">更新</button>
-        </form>
     </div>
-    <hr>
-    <div>
-        <a href="">新規ユーザー登録</a>
-    </div>
-    <a href="">ログアウト</a>
+
 
 
     <script>
