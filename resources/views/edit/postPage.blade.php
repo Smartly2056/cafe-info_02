@@ -42,7 +42,7 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
             <button type="submit">メニュー掲載</button>
         </form>
 
-        <button class="purge">全て削除</button>
+        {{-- <button class="purge">全て削除</button> --}}
     </div>
     <hr>
 
@@ -114,23 +114,6 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
             });
             fileData.readAsDataURL(event.files[0]);
         }
-
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                fetch(`/editPage/${checkbox.parentNode.dataset.id}/toggle`, {
-                    method: 'POST',
-                    // method: 'PATCH',
-                    body: new URLSearchParams({
-                        id: checkbox.dataset.id,
-                    }),
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                });
-                checkbox.parentNode.classList.toggle('soldOut');
-            });
-        });
 
         const deletes = document.querySelectorAll('.delete');
         deletes.forEach(button => {

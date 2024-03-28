@@ -22,6 +22,19 @@ class MenuController extends Controller
             ->with(['MenuViewer' => $MenuViewer]);
     }
 
+    public function detail($id)
+    {
+        $menuId = MenuViewer::findOrFail($id)->menu_id;
+        $menuDetail = MenuList::where('menu_id', $menuId)->first();
+
+        if ($menuDetail) {
+            return response()->json($menuDetail);
+        } else {
+            return response()->json(['error' => 'Failed to encode data'], 404);
+        }
+    }
+
+
     // 管理者ページ
     public function editPage()
     {

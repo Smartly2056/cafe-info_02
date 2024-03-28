@@ -10,6 +10,10 @@ Route::get('/', [MenuController::class, 'index'])
 Route::get('/menuViewer', [MenuController::class, 'showMenus'])
     ->name('menus.showMenus');
 
+Route::post('/menuViewer/{id}/detail', [MenuController::class, 'detail'])
+    ->name('menus.detail')
+    ->where('id', '[0-9]+');
+
 Route::get('/editPage', [MenuController::class, 'editPage'])
     ->name('edit.editPage');
 
