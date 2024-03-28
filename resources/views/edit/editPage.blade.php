@@ -36,14 +36,20 @@
     <hr>
     <h3>営業カレンダーを更新</h3>
     <div class="submitCalendar">
-        <form action="" method="" enctype="">
+        <form action="{{ route('edit.calendar') }}" method="post" enctype="multipart/form-data">
+            @csrf
             <div>
                 <img id="previewCalendar">
-                <input type="file" name="file_calendar" onchange=";">
+                <input type="file" name="calendar" onchange="previewFile(this);">
             </div>
+            @error('picture')
+                <div>{{ $message }}</div>
+            @enderror
+
             <button type="submit" name="submit">更新</button>
         </form>
     </div>
+
     <hr>
     <div>
         <a href="">新規ユーザー登録</a>
@@ -55,7 +61,7 @@
         function previewFile(event) {
             let fileData = new FileReader();
             fileData.onload = (function() {
-                const preview = document.getElementById('preview');
+                const preview = document.getElementById('previewCalendar');
                 preview.src = fileData.result;
                 preview.style.width = "200px";
                 preview.style.height = "150px";

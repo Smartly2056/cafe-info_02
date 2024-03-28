@@ -15,7 +15,7 @@ body {
 }
 
 .menuViewer.hidden {
-    /* display: none; */
+    display: none;
 }
 
 .menu {

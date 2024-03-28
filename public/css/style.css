@@ -46,6 +46,16 @@ h2#store {
   height: calc( 600px / 16 * 9 );
 }
 
+.calendar {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.calendar iframe {
+    width: 600px;
+    height: calc( 600px * sqrt(2.15) );
+}
+
 
 /* header */
 #header h1 a {
@@ -121,6 +131,16 @@ footer {
     width: 380px;
     height: calc( 380px / 16 * 9 );
   }
+
+  .calendar {
+    width: 380px;
+    margin: 0 auto;
+  }
+
+  .calendar iframe {
+    width: 380px;
+    height: calc( 380px * sqrt(2.15) );
+  }
 }
 
 @media screen and (480px <= width < 600px ) {
@@ -146,6 +166,16 @@ footer {
   .liveMovie iframe {
     width: 480px;
     height: calc( 480px / 16 * 9 );
+  }
+
+  .calendar {
+    width: 480px;
+    margin: 0 auto;
+  }
+
+  .calendar iframe {
+    width:480px;
+    height: calc( 480px * sqrt(2.15) );
   }
 
 }
@@ -175,6 +205,16 @@ footer {
     height: calc( 600px / 16 * 9 );
   }
 
+  .calendar {
+    width: 480px;
+    margin: 0 auto;
+  }
+
+  .calendar iframe {
+    width:480px;
+    height: calc( 480px * sqrt(2.15) );
+  }
+
 }
 
 @media screen and (768px <= width < 1024px ) {
@@ -200,6 +240,16 @@ footer {
   .liveMovie iframe {
     width: 600px;
     height: calc( 600px / 16 * 9 );
+  }
+
+  .calendar {
+    width: 600px;
+    margin: 0 auto;
+  }
+
+  .calendar iframe {
+    width: 600px;
+    height: calc( 600px * sqrt(2.15) );
   }
 
 }

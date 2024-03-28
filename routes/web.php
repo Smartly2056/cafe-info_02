@@ -26,13 +26,13 @@ Route::post('/editPage/{id}/toggle', [EditController::class, 'toggle'])
     ->name('edit.toggle')
     ->where('id', '[0-9]+');
 
+Route::post('/editPage/calendar', [EditController::class, 'calendar'])
+    ->name('edit.calendar');
+
 
 // メニュー掲載画面
 Route::get('/editPage/postPage', [EditController::class, 'postPage'])
     ->name('edit.postPage');
-
-// Route::post('/editPage/postPage/date', [EditController::class, 'date'])
-    // ->name('edit.date');
 
 
 // 新規メニュー追加

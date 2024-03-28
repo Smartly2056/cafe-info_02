@@ -32,27 +32,11 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
             <div>
                 <label>提供日</label>
                 <select name="show_date">
-                    <option value="{{ date('Y-m-d') }}">
-                        {{ date('m/d') }}
-                    </option>
-                    <option value="{{ date('Y-m-d', strtotime('+1 day')) }}">
-                        {{ date('m/d', strtotime('+1 day')) }}
-                    </option>
-                    <option value="{{ date('Y-m-d', strtotime('+2 day')) }}">
-                        {{ date('m/d', strtotime('+2 day')) }}
-                    </option>
-                    <option value="{{ date('Y-m-d', strtotime('+3 day')) }}">
-                        {{ date('m/d', strtotime('+3 day')) }}
-                    </option>
-                    <option value="{{ date('Y-m-d', strtotime('+4 day')) }}">
-                        {{ date('m/d', strtotime('+4 day')) }}
-                    </option>
-                    <option value="{{ date('Y-m-d', strtotime('+5 day')) }}">
-                        {{ date('m/d', strtotime('+5 day')) }}
-                    </option>
-                    <option value="{{ date('Y-m-d', strtotime('+6 day')) }}">
-                        {{ date('m/d', strtotime('+6 day')) }}
-                    </option>
+                    @for ($i = 0; $i < 7; $i++)
+                        <option value="{{ date('Y-m-d', strtotime('+' . $i . 'day')) }}">
+                            {{ date('m/d', strtotime('+' . $i . 'day')) }}
+                        </option>
+                    @endfor
                 </select>
             </div>
             <button type="submit">メニュー掲載</button>
@@ -74,7 +58,7 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
     {{-- メニュー一覧 --}}
     <div>
         @for ($i = 0; $i < 7; $i++)
-            <div data-id="{{ date('m/d', strtotime('+' . $i . ' day')) }}" class="menuViewer hidden">
+            <div data-id="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}" class="menuViewer {{ $i !== 0 ? "hidden" : "" }}">
                 <p>{{ date('m/d', strtotime('+' . $i . ' day')) }}のメニュー</p>
                 <br>
                 @forelse ($MenuViewer as $menu)
@@ -85,17 +69,13 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
                             <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
 
                             <button data-id="{{ $menu->id }}" class="delete">削除</button>
-                            <input type="checkbox" data-id="{{ $menu->id }}"
-                                {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
                         </div>
                     @endif
                 @empty
                     <p>No menus yet</p>
                 @endforelse
             </div>
-
         @endfor
-
     </div>
 
     <hr>
@@ -171,9 +151,17 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
         });
 
         const showDates = document.querySelectorAll('.showDate');
+        const menuViewers = document.querySelectorAll('.menuViewer');
+
         showDates.forEach(date => {
             date.addEventListener('click', () => {
-                
+                menuViewers.forEach(menuViewer => {
+                    menuViewer.classList.add('hidden');
+
+                    if (menuViewer.dataset.id == date.value) {
+                        menuViewer.classList.remove('hidden');
+                    }
+                });
             });
         });
 

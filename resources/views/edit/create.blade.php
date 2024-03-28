@@ -49,7 +49,6 @@
                     <div>{{ $message }}</div>
                 @enderror
             </div>
-
             <div>
                 <label for="#">メニュー名</label>
                 <input type="text" name="menu" placeholder="例:カレーライス">

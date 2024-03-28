@@ -1,3 +1,9 @@
+<?php
+    use App\Models\Calendar;
+    $calendar = Calendar::latest()->orderBy('id', 'DESC')->first();
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -39,7 +45,9 @@
 
     <section>
         <h2>営業時間</h2>
-
+        <div class="calendar">
+            <iframe src="{{ asset($calendar->calendar) }}" frameborder="0"></iframe>
+        </div>
     </section>
 
     <footer>
