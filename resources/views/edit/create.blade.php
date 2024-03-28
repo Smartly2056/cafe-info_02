@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新規メニュー追加</title>
-    <link rel="stylesheet" href="{{ url('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url('css/editPage.css') }}">
 </head>
 
 <body>

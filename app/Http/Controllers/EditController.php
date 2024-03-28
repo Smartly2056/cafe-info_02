@@ -34,7 +34,7 @@ class EditController extends Controller
             ->route('edit.editPage');
     }
 
-    public function show(Request $request)
+    public function post(Request $request)
     {
         $request->validate([
             'menu_id' => 'required',
@@ -74,11 +74,24 @@ class EditController extends Controller
     public function postPage()
     {
         $menuList = MenuList::all();
-        $MenuViewer = MenuViewer::all();
+        $MenuViewer = MenuViewer::where('show_date', '>=', date('Y-m-d'))
+            ->orderBy('show_date', 'asc')
+            ->get();
 
         return view('edit.postPage')
             ->with(['menuList' => $menuList, 'MenuViewer' => $MenuViewer]);
     }
+
+    // public function date()
+    // {
+    //     $menuList = MenuList::all();
+    //     $MenuViewer = MenuViewer::where('show_date', '=', date('Y-m-d'))->get();
+
+    //     return view('edit.postPage')
+    //         ->with(['menuList' => $menuList, 'MenuViewer' => $MenuViewer]);
+    // }
+
+
 
     public function create()
     {

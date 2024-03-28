@@ -10,8 +10,8 @@
 
 <body>
     <header id="header">
-        <h1 class="site-title"><a href="index.html">東北大学 学食情報</a></h1>
-
+        <h1 class="site-title">東北大学 学食情報</h1>
+{{--
         <nav>
             <button action="#">川内の杜ダイニング</button>
             <button action="#">文系食堂</button>
@@ -20,10 +20,10 @@
             <button action="#">理薬食堂</button>
             <button action="#">星陵食堂</button>
             <button action="#">さくらキッチン</button>
-        </nav>
+        </nav> --}}
     </header>
     <section>
-        <h2 id="store">川内の杜ダイニング</h2>
+        <h2 id="store">あおば食堂</h2>
 
         <h2>本日のメニュー</h2>
         <div class="menus">

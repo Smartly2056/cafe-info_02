@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メニュー編集</title>
-    <link rel="stylesheet" href="{{ url('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url('css/editPage.css') }}">
 </head>
 
 <body>
@@ -14,142 +14,27 @@
     <a href="{{ route('edit.postPage') }}">メニュー掲載画面</a>
     <a href="{{ route('edit.create') }}">新規メニュー追加画面</a>
 
-    {{-- <h3>メニュー掲載フォーム</h3>
-    <div class="showImage">
-        <form action="{{ route('edit.show') }}" method="POST">
-            @csrf
-
-            <div>
-                <label for="#">メニューID</label>
-                <input type="number" name="menu_id">
-            </div>
-            <button type="submit">メニュー掲載</button>
-        </form>
-
-        <button class="purge">全て削除</button>
-    </div>
-    <hr> --}}
     <hr>
     <h3>本日のメニュー</h3>
     <div class="menuViewer">
         @forelse ($MenuViewer as $menu)
-            <div class="menu" data-id="{{ $menu->id }}">
-                <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
-                <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
-                <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
+            @if ($menu->show_date == date('Y-m-d'))
+                <div class="menu" data-id="{{ $menu->id }}">
+                    <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
+                    <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
+                    <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
 
-                <button data-id="{{ $menu->id }}" class="delete">削除</button>
-                <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
-            </div>
+                    <button data-id="{{ $menu->id }}" class="delete">削除</button>
+                    <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
+                </div>
+            @endif
         @empty
             <p>No menus yet</p>
         @endforelse
     </div>
 
-    {{-- <hr>
-    <div class="menuList">
-        <h3>メニューリスト</h3>
-        <table>
-            <tr>
-                <th>メニューID</th>
-                <th>メニュー名</th>
-            </tr>
-            @forelse ($menuList as $menu)
-                <tr>
-                    <td>{{ $menu->id ? $menu->id : '-' }}</td>
-                    <td>{{ $menu->menu ? $menu->menu : '-' }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td>No menu_id yet</td>
-                    <td>No menu yet</td>
-                </tr>
-            @endforelse
-        </table>
-    </div> --}}
-
-    {{-- <hr>
-    <h3>メニューを追加</h3>
-    <div class="submitImage">
-        <form action="{{ route('edit.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-
-            <div>
-                <img id="preview">
-                <input type="file" name="picture" onchange="previewFile(this);">
-                @error('picture')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div>
-                <label for="#">メニュー名</label>
-                <input type="text" name="menu" placeholder="例:カレーライス">
-                @error('menu')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">値段</label>
-                <input type="number" name="price" placeholder="例:500">
-                @error('price')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">エネルギー</label>
-                <input type="number" name="energy">kcal
-                @error('energy')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">タンパク質</label>
-                <input type="number" step="0.01" name="protein">g
-                @error('protein')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">脂質</label>
-                <input type="number" step="0.01" name="lipid">g
-                @error('lipid')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">炭水化物</label>
-                <input type="number" step="0.01" name="carbohydrates">g
-                @error('carbohydrates')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">食塩相当量</label>
-                <input type="number" step="0.01" name="salt">g
-                @error('salt')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">カルシウム</label>
-                <input type="number" step="0.01" name="calcium">g
-                @error('calcium')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="#">野菜量</label>
-                <input type="number" step="0.01" name="vegetable">g
-                @error('vegetable')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <button type="submit" name="submit">メニュー追加</button>
-        </form>
-    </div> --}}
     <hr>
-    <h3>営業時間を更新</h3>
+    <h3>営業カレンダーを更新</h3>
     <div class="submitCalendar">
         <form action="" method="" enctype="">
             <div>

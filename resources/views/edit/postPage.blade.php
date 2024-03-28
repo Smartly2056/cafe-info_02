@@ -1,9 +1,7 @@
 <?php
-    date_default_timezone_set('Asia/Tokyo');
+date_default_timezone_set('Asia/Tokyo');
 
-    $week = [
-        "日", "月", "火", "水", "木", "金", "土",
-    ];
+$week = ['日', '月', '火', '水', '木', '金', '土'];
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メニュー掲載画面</title>
-    <link rel="stylesheet" href="{{ url('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url('css/editPage.css') }}">
 </head>
 
 <body>
@@ -24,7 +22,7 @@
 
     <h3>メニュー掲載フォーム</h3>
     <div class="showImage">
-        <form action="{{ route('edit.show') }}" method="POST">
+        <form action="{{ route('edit.post') }}" method="POST">
             @csrf
 
             <div>
@@ -32,7 +30,7 @@
                 <input type="number" name="menu_id">
             </div>
             <div>
-                <label>掲載日</label>
+                <label>提供日</label>
                 <select name="show_date">
                     <option value="{{ date('Y-m-d') }}">
                         {{ date('m/d') }}
@@ -66,53 +64,38 @@
 
     <h3>メニュー一覧</h3>
 
-
-
+    {{-- 日付選択 --}}
     <div class="dateOptions">
-        <div>
-            <input type="radio" name="date" id="today" checked>
-            <label for="today">{{ date('m/d') . '(' . $week[date('w')] . ')' }}</label>
-        </div>
-        <div>
-            <input type="radio" name="date" id="tomorrow">
-            <label for="tomorrow">{{ date('m/d', strtotime('+1 day')) . '(' . $week[date('w', strtotime('+1 day'))] . ')' }}</label>
-        </div>
-        <div>
-            <input type="radio" name="date" id="two">
-            <label for="two">{{ date('m/d', strtotime('+2 day')) . '(' . $week[date('w', strtotime('+2 day'))] . ')' }}</label>
-        </div>
-        <div>
-            <input type="radio" name="date" id="three">
-            <label for="three">{{ date('m/d', strtotime('+3 day')) . '(' . $week[date('w', strtotime('+3 day'))] . ')' }}</label>
-        </div>
-        <div>
-            <input type="radio" name="date" id="four">
-            <label for="four">{{ date('m/d', strtotime('+4 day')) . '(' . $week[date('w', strtotime('+4 day'))] . ')' }}</label>
-        </div>
-        <div>
-            <input type="radio" name="date" id="five">
-            <label for="five">{{ date('m/d', strtotime('+5 day')) . '(' . $week[date('w', strtotime('+5 day'))] . ')' }}</label>
-        </div>
-        <div>
-            <input type="radio" name="date" id="six">
-            <label for="six">{{ date('m/d', strtotime('+6 day')) . '(' . $week[date('w', strtotime('+6 day'))] . ')' }}</label>
-        </div>
+        @for ($i = 0; $i < 7; $i++)
+            <button class="showDate" value="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}">{{ date('m/d', strtotime('+' . $i . ' day')) . '(' . $week[date('w', strtotime('+' . $i . ' day'))] . ')' }}</button>
+        @endfor
     </div>
 
+    {{-- メニュー一覧 --}}
+    <div>
+        @for ($i = 0; $i < 7; $i++)
+            <div data-id="{{ date('m/d', strtotime('+' . $i . ' day')) }}" class="menuViewer hidden">
+                <p>{{ date('m/d', strtotime('+' . $i . ' day')) }}のメニュー</p>
+                <br>
+                @forelse ($MenuViewer as $menu)
+                    @if ($menu->show_date == date('Y-m-d', strtotime('+' . $i . ' day')))
+                        <div class="menu" data-id="{{ $menu->id }}">
+                            <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
+                            <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
+                            <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
 
-    <div class="menuViewer">
-        @forelse ($MenuViewer as $menu)
-            <div class="menu" data-id="{{ $menu->id }}">
-                <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}">
-                <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
-                <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
-
-                <button data-id="{{ $menu->id }}" class="delete">削除</button>
-                <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
+                            <button data-id="{{ $menu->id }}" class="delete">削除</button>
+                            <input type="checkbox" data-id="{{ $menu->id }}"
+                                {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
+                        </div>
+                    @endif
+                @empty
+                    <p>No menus yet</p>
+                @endforelse
             </div>
-        @empty
-            <p>No menus yet</p>
-        @endforelse
+
+        @endfor
+
     </div>
 
     <hr>
@@ -138,7 +121,7 @@
     </div>
 
 
-
+    {{-- JS --}}
     <script>
         function previewFile(event) {
             let fileData = new FileReader();
@@ -186,6 +169,18 @@
                 button.parentNode.remove();
             });
         });
+
+        const showDates = document.querySelectorAll('.showDate');
+        showDates.forEach(date => {
+            date.addEventListener('click', () => {
+                
+            });
+        });
+
+
+
+
+
     </script>
 </body>
 

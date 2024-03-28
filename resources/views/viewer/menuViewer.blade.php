@@ -11,12 +11,14 @@
 <body>
     <div class="menuViewer">
         @forelse ($MenuViewer as $menu)
-            <div class="menu" data-id="{{ $menu->id }}">
-                <a data-id="{{ $menu->id }}"><img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}"></a>
-                <p>{{ $menu->menuList->menu }}</p>
-                <p><span>&#xa5</span>{{ $menu->menuList->price }} </p>
-                <p class="soldOut {{ !($menu->sold_out) ? "hidden" : ""}}">SOLD OUT</p>
-            </div>
+            @if ($menu->show_date == date('Y-m-d'))
+                <div class="menu" data-id="{{ $menu->id }}">
+                    <a data-id="{{ $menu->id }}"><img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}"></a>
+                    <p>{{ $menu->menuList->menu }}</p>
+                    <p><span>&#xa5</span>{{ $menu->menuList->price }} </p>
+                    <p class="soldOut {{ !($menu->sold_out) ? "hidden" : ""}}">SOLD OUT</p>
+                </div>
+            @endif
         @empty
             <p>No menus yet</p>
         @endforelse

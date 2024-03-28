@@ -15,8 +15,8 @@ Route::get('/editPage', [MenuController::class, 'editPage'])
 
 
 // メニュー表示操作
-Route::post('/editPage/show', [EditController::class, 'show'])
-    ->name('edit.show');
+Route::post('/editPage/post', [EditController::class, 'post'])
+    ->name('edit.post');
 
 Route::post('/editPage/{id}/destroy', [EditController::class, 'destroy'])
     ->name('edit.destroy')
@@ -30,6 +30,9 @@ Route::post('/editPage/{id}/toggle', [EditController::class, 'toggle'])
 // メニュー掲載画面
 Route::get('/editPage/postPage', [EditController::class, 'postPage'])
     ->name('edit.postPage');
+
+// Route::post('/editPage/postPage/date', [EditController::class, 'date'])
+    // ->name('edit.date');
 
 
 // 新規メニュー追加
