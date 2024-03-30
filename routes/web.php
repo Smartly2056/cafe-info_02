@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [MenuController::class, 'index'])
     ->name('menus.index');
@@ -48,4 +49,10 @@ Route::post('/editPage/store', [EditController::class, 'store'])
 
 Route::post('/editPage/create/store', [EditController::class, 'create_store'])
     ->name('edit.create_store');
+
+
+// ログイン
+Route::get('/login_form', [UserController::class, 'loginForm'])
+    ->name('user.loginForm');
+
 

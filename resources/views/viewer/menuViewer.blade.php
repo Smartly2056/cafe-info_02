@@ -31,9 +31,9 @@
         <div id="modal" class="hidden">
             <img src="" alt="">
             <p class="soldOut hidden">SOLD OUT</p>
+            <div class="modalMenu"></div>
+            <div class="modalPrice"></div>
             <ul>
-                <li></li>
-                <li></li>
                 <li></li>
                 <li></li>
                 <li></li>
@@ -68,29 +68,30 @@
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         body: JSON.stringify({
-                            id: menuDetail.dataset.id,
+                            id: menuDetail.parentNode.dataset.id,
                         }),
                     })
                     .then(response => {
                         responseClone = response.clone();
                         return response.json();
+                        console.log(response);
                     })
                     .then(data => {
                         console.log(data);
 
                         modal.querySelector('img').src = menuDetail.firstElementChild.src;
 
-                        modal.querySelector('li:nth-child(1)').innerText = `メニュー: ${data.menu}`;
-                        modal.querySelector('li:nth-child(2)').innerText = `値段: ${data.price}`;
+                        modal.querySelector('.modalMenu').innerText = `${data.menu}`;
+                        modal.querySelector('.modalPrice').innerText = `\xa5${data.price}`;
 
-                        modal.querySelector('li:nth-child(3)').innerText = `エネルギー: ${data.energy}`;
-                        modal.querySelector('li:nth-child(4)').innerText = `タンパク質: ${data.protein}`;
-                        modal.querySelector('li:nth-child(5)').innerText = `脂質: ${data.lipid}`;
-                        modal.querySelector('li:nth-child(6)').innerText =
-                        `炭水化物: ${data.carbohydrates}`;
-                        modal.querySelector('li:nth-child(7)').innerText = `食塩相当量: ${data.salt}`;
-                        modal.querySelector('li:nth-child(8)').innerText = `カルシウム: ${data.calcium}`;
-                        modal.querySelector('li:nth-child(9)').innerText = `野菜量: ${data.vegetable}`;
+                        modal.querySelector('li:nth-child(1)').innerText = `エネルギー: ${data.energy}`;
+                        modal.querySelector('li:nth-child(2)').innerText = `タンパク質: ${data.protein}`;
+                        modal.querySelector('li:nth-child(3)').innerText = `脂質: ${data.lipid}`;
+                        modal.querySelector('li:nth-child(4)').innerText =
+                            `炭水化物: ${data.carbohydrates}`;
+                        modal.querySelector('li:nth-child(5)').innerText = `食塩相当量: ${data.salt}`;
+                        modal.querySelector('li:nth-child(6)').innerText = `カルシウム: ${data.calcium}`;
+                        modal.querySelector('li:nth-child(7)').innerText = `野菜量: ${data.vegetable}`;
 
                         if (data.sold_out == 1) {
                             modal.querySelector('.soldOut').classList.remove("hidden");
@@ -98,13 +99,13 @@
 
                     }, function(rejectionReason) {
                         console.log('Error parsing JSON from response:', rejectionReason,
-                        responseClone);
+                            responseClone);
                         responseClone.text()
                             .then(function(bodyText) {
                                 console.log('Received the following instead of valid JSON:',
                                     bodyText);
                                 console.log('Substring after position 15:', bodyText.substring(
-                                235));
+                                    235));
                             });
                     });
 

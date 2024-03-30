@@ -25,7 +25,7 @@ class MenuController extends Controller
     public function detail($id)
     {
         $menuId = MenuViewer::findOrFail($id)->menu_id;
-        $menuDetail = MenuList::where('menu_id', $menuId)->first();
+        $menuDetail = MenuList::where('id', '=', $menuId)->first();
 
         if ($menuDetail) {
             return response()->json($menuDetail);
