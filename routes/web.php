@@ -55,4 +55,3 @@ Route::post('/editPage/create/store', [EditController::class, 'create_store'])
 Route::get('/login_form', [UserController::class, 'loginForm'])
     ->name('user.loginForm');
 
-
