@@ -67,7 +67,7 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
                             <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
                             <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
 
-                            <button data-id="{{ $menu->id }}" class="delete">削除</button>
+                            <button data-id="{{ $menu->id }}" class="delete_post">削除</button>
                         </div>
                     @endif
                 @empty

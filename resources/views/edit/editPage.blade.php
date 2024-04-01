@@ -11,8 +11,12 @@
 <body>
     <h1>メニュー編集画面</h1>
 
-    <a href="{{ route('edit.postPage') }}">メニュー掲載画面</a>
-    <a href="{{ route('edit.create') }}">新規メニュー追加画面</a>
+    <div class="changePage">
+        <a href="{{ route('edit.postPage') }}" id="postPage">メニュー掲載画面</a>
+    </div>
+    <div class="changePage">
+        <a href="{{ route('edit.create') }}" id="createPage">新規メニュー追加画面</a>
+    </div>
 
     <hr>
     <h3>本日のメニュー</h3>
@@ -90,7 +94,7 @@
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
-                fetch(`/editPage/${checkbox.parentNode.dataset.id}/toggle`, {
+                fetch(`/editPage/${checkbox.dataset.id}/toggle`, {
                     method: 'POST',
                     // method: 'PATCH',
                     body: new URLSearchParams({
@@ -100,14 +104,14 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                 });
-                checkbox.parentNode.classList.toggle('soldOut');
+                // checkbox.parentNode.parentNode.parentNode.classList.toggle('soldOut');
             });
         });
 
         const deletes = document.querySelectorAll('.delete');
         deletes.forEach(button => {
             button.addEventListener('click', () => {
-                fetch(`/editPage/${button.parentNode.dataset.id}/destroy`, {
+                fetch(`/editPage/${button.parentNode.parentNode.dataset.id}/destroy`, {
                     method: 'POST',
                     // method: 'DELETE',
                     body: new URLSearchParams({
@@ -118,7 +122,7 @@
                     },
                 });
 
-                button.parentNode.remove();
+                button.parentNode.parentNode.remove();
             });
         });
     </script>

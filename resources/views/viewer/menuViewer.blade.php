@@ -9,9 +9,11 @@
 </head>
 
 <body>
+    <?php $i = 0 ?>
     <div class="menuViewer">
         @forelse ($MenuViewer as $menu)
             @if ($menu->show_date == date('Y-m-d'))
+                <?php $i++; ?>
                 <div class="menu" data-id="{{ $menu->id }}">
                     <a data-id="{{ $menu->id }}" class="menuDetail">
                         <img src="{{ asset($menu->menuList->picture) }}" alt="{{ $menu->menuList->menu }}"></a>
@@ -21,9 +23,10 @@
                 </div>
             @endif
         @empty
-            <p>No menus yet</p>
+            <p></p>
         @endforelse
     </div>
+    <p class="noMenuMessage">{{ $i == 0 ? "No menus yet": "" }}</p>
 
 
     <!-- モーダル -->
