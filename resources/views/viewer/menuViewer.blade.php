@@ -84,14 +84,14 @@
                         modal.querySelector('.modalMenu').innerText = `${data.menu}`;
                         modal.querySelector('.modalPrice').innerText = `\xa5${data.price}`;
 
-                        modal.querySelector('li:nth-child(1)').innerText = `エネルギー: ${data.energy}`;
-                        modal.querySelector('li:nth-child(2)').innerText = `タンパク質: ${data.protein}`;
-                        modal.querySelector('li:nth-child(3)').innerText = `脂質: ${data.lipid}`;
+                        modal.querySelector('li:nth-child(1)').innerText = `エネルギー: ${data.energy}kcal`;
+                        modal.querySelector('li:nth-child(2)').innerText = `タンパク質: ${data.protein}g`;
+                        modal.querySelector('li:nth-child(3)').innerText = `脂質: ${data.lipid}g`;
                         modal.querySelector('li:nth-child(4)').innerText =
-                            `炭水化物: ${data.carbohydrates}`;
-                        modal.querySelector('li:nth-child(5)').innerText = `食塩相当量: ${data.salt}`;
-                        modal.querySelector('li:nth-child(6)').innerText = `カルシウム: ${data.calcium}`;
-                        modal.querySelector('li:nth-child(7)').innerText = `野菜量: ${data.vegetable}`;
+                            `炭水化物: ${data.carbohydrates}g`;
+                        modal.querySelector('li:nth-child(5)').innerText = `食塩相当量: ${data.salt}g`;
+                        modal.querySelector('li:nth-child(6)').innerText = `カルシウム: ${data.calcium}g`;
+                        modal.querySelector('li:nth-child(7)').innerText = `野菜量: ${data.vegetable}g`;
 
                         if (data.sold_out == 1) {
                             modal.querySelector('.soldOut').classList.remove("hidden");

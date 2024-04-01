@@ -24,8 +24,13 @@
                     <p>{{ $menu->menuList->menu ? $menu->menuList->menu : '-' }}</p>
                     <p><span>&#xa5</span>{{ $menu->menuList->price ? $menu->menuList->price : '-' }}</p>
 
-                    <button data-id="{{ $menu->id }}" class="delete">削除</button>
-                    <input type="checkbox" data-id="{{ $menu->id }}" {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
+                    <div class="controller">
+                        <div>
+                            <input type="checkbox" data-id="{{ $menu->id }}" class="toggle"
+                                {{ $menu->sold_out ? 'checked' : '' }}>完売</input>
+                        </div>
+                        <button data-id="{{ $menu->id }}" class="delete">削除</button>
+                    </div>
                 </div>
             @endif
         @empty
@@ -51,11 +56,23 @@
     </div>
 
     <hr>
-    <div>
-        <a href="">新規ユーザー登録</a>
+    <div class="accountPage">
+        <a href="{{ route('profile.edit') }}" >
+            {{ __('アカウント編集') }}
+        </a>
     </div>
-    <a href="">ログアウト</a>
 
+    <div class="logoutForm">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                        this.closest('form').submit();">
+                {{ __('ログアウト') }}
+            </a>
+        </form>
+    </div>
 
     <script>
         function previewFile(event) {

@@ -58,9 +58,8 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
     {{-- メニュー一覧 --}}
     <div>
         @for ($i = 0; $i < 7; $i++)
+            <p data-id="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}" class="menuDate {{ $i !== 0 ? "hidden" : "" }}">{{ date('m/d', strtotime('+' . $i . ' day')) }}のメニュー</p>
             <div data-id="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}" class="menuViewer {{ $i !== 0 ? "hidden" : "" }}">
-                <p>{{ date('m/d', strtotime('+' . $i . ' day')) }}のメニュー</p>
-                <br>
                 @forelse ($MenuViewer as $menu)
                     @if ($menu->show_date == date('Y-m-d', strtotime('+' . $i . ' day')))
                         <div class="menu" data-id="{{ $menu->id }}">
@@ -135,6 +134,7 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
 
         const showDates = document.querySelectorAll('.showDate');
         const menuViewers = document.querySelectorAll('.menuViewer');
+        const menuDates = document.querySelectorAll('.menuDate');
 
         showDates.forEach(date => {
             date.addEventListener('click', () => {
@@ -145,12 +145,16 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
                         menuViewer.classList.remove('hidden');
                     }
                 });
+                menuDates.forEach(menuDate => {
+                    menuDate.classList.add('hidden');
+
+                    if (menuDate.dataset.id == date.value) {
+                        menuDate.classList.remove('hidden');
+                    }
+                });
+
             });
         });
-
-
-
-
 
     </script>
 </body>

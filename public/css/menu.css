@@ -94,7 +94,20 @@ body {
   display: block;
   width: 200px;
   height: 150px;
-  margin: 0 auto;
+  margin: 0px auto 16px;
+}
+
+#modal .modalMenu {
+    text-align: center;
+}
+
+#modal .modalPrice {
+    text-align: center;
+}
+
+#modal ul {
+    width: 200px;
+    margin: 16px auto;
 }
 
 #modal .soldOut {
