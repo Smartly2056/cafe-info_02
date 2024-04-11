@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\MenuList;
 use App\Models\MenuViewer;
 use App\Models\Calendar;
@@ -51,6 +52,7 @@ class EditController extends Controller
     public function postPage()
     {
         $menuList = MenuList::all();
+
         $MenuViewer = MenuViewer::where('show_date', '>=', date('Y-m-d'))
             ->orderBy('show_date', 'asc')
             ->get();
@@ -61,9 +63,24 @@ class EditController extends Controller
 
     public function post(Request $request)
     {
-        $request->validate([
-            'menu_id' => 'required',
+        $menuNum = MenuList::count();
+
+        $validator = Validator::make($request->all(), [
+            'menu_id' => [
+                'required',
+                function ($attribute, $value, $fail) use ($menuNum) {
+                    if ($value > $menuNum) {
+                        $fail('メニューIDが間違っています');
+                    }
+                }
+            ],
         ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
+        }
 
         $menus = new MenuViewer();
         $menus->menu_id = $request->menu_id;
@@ -108,9 +125,4 @@ class EditController extends Controller
         return redirect()
             ->route('edit.editPage');
     }
-
-
-
-
-
 }

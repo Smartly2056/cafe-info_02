@@ -44,5 +44,4 @@ class MenuController extends Controller
         return view('edit.editPage')
             ->with(['menuList' => $menuList, 'MenuViewer' => $MenuViewer]);
     }
-
 }
