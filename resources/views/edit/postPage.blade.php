@@ -2,6 +2,7 @@
 date_default_timezone_set('Asia/Tokyo');
 
 $week = ['日', '月', '火', '水', '木', '金', '土'];
+
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +34,14 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
                 <label>提供日</label>
                 <select name="show_date">
                     @for ($i = 0; $i < 7; $i++)
-                        <option value="{{ date('Y-m-d', strtotime('+' . $i . 'day')) }}">
+                        @php
+                            $dateValue = date('Y-m-d', strtotime('+' . $i . 'day'));
+                            $oldValue = old('show_date');
+                        @endphp
+
+                        <option value="{{ $dateValue }}" {{ $oldValue == $dateValue ? 'selected' : '' }}>
                             {{ date('m/d', strtotime('+' . $i . 'day')) }}
+                            {{ old('show_date') }}
                         </option>
                     @endfor
                 </select>
@@ -51,15 +58,25 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
     {{-- 日付選択 --}}
     <div class="dateOptions">
         @for ($i = 0; $i < 7; $i++)
-            <button class="showDate" value="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}">{{ date('m/d', strtotime('+' . $i . ' day')) . '(' . $week[date('w', strtotime('+' . $i . ' day'))] . ')' }}</button>
+            @php
+                $dateValue = date('Y-m-d', strtotime('+' . $i . 'day'));
+            @endphp
+
+            <button class="showDate"
+                value="{{ $dateValue }}">{{ date('m/d', strtotime('+' . $i . ' day')) . '(' . $week[date('w', strtotime('+' . $i . ' day'))] . ')' }}</button>
         @endfor
     </div>
 
     {{-- メニュー一覧 --}}
     <div>
         @for ($i = 0; $i < 7; $i++)
-            <p data-id="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}" class="menuDate {{ $i !== 0 ? "hidden" : "" }}">{{ date('m/d', strtotime('+' . $i . ' day')) }}のメニュー</p>
-            <div data-id="{{ date('Y-m-d', strtotime('+' . $i . ' day')) }}" class="menuViewer {{ $i !== 0 ? "hidden" : "" }}">
+            @php
+                $dateValue = date('Y-m-d', strtotime('+' . $i . 'day'));
+            @endphp
+
+            <p data-id="{{ $dateValue }}" class="menuDate {{ $i !== 0 ? 'hidden' : '' }}">
+                {{ date('m/d', strtotime('+' . $i . ' day')) }}のメニュー</p>
+            <div data-id="{{ $dateValue }}" class="menuViewer {{ $i !== 0 ? 'hidden' : '' }}">
                 @forelse ($MenuViewer as $menu)
                     @if ($menu->show_date == date('Y-m-d', strtotime('+' . $i . ' day')))
                         <div class="menu" data-id="{{ $menu->id }}">
@@ -114,7 +131,7 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
             fileData.readAsDataURL(event.files[0]);
         }
 
-        const deletes = document.querySelectorAll('.delete');
+        const deletes = document.querySelectorAll('.delete_post');
         deletes.forEach(button => {
             button.addEventListener('click', () => {
                 fetch(`/editPage/${button.parentNode.dataset.id}/destroy`, {
@@ -155,7 +172,6 @@ $week = ['日', '月', '火', '水', '木', '金', '土'];
 
             });
         });
-
     </script>
 </body>
 
